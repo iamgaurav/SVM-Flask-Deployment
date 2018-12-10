@@ -38,18 +38,9 @@ from sklearn.metrics import accuracy_score
 y_pred = classifier.predict(x_test)
 
 #save the model
-filename = 'dataset/svm.pkl'
+filename = '{}/dataset/svm.pkl'.format(dir_path)
 _ = joblib.dump(classifier, filename, compress=9)
 
-
-data = request.urlopen("http://5bff0f87362b930013f652d1.mockapi.io/api/svm")
-
-json_ = json.loads(data.read())
-query = pd.get_dummies(pd.DataFrame(json_))
-query = query.reindex(columns=model_columsn, fill_value=0)
-query = sc.fit_transform(query)
-
-print(classifier.predict(query))
 
 
 #
