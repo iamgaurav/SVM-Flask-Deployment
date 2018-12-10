@@ -22,5 +22,5 @@ jobs:
                 sudo pip install awscli --upgrade
                 aws ecr get-login --no-include-email --region us-east-1 | bash -
                 docker tag svm_api:latest 806947599851.dkr.ecr.us-east-1.amazonaws.com/svm:dev
-                docker push 806947599851.dkr.ecr.us-east-1.amazonaws.com/svm::dev
+                docker push 806947599851.dkr.ecr.us-east-1.amazonaws.com/svm:dev
             fi
