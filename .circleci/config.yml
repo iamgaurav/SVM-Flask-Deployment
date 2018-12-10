@@ -1,0 +1,21 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/python:latest
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Build the docker
+          command: docker build -t svm_api:latest .
+      - deploy:
+          name: Push to docker dev repository if MASTER
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ];
+              then
+                sudo pip install awscli --upgrade
+                aws ecr get-login --no-include-email --region us-east-1 | bash -
+                docker tag svm_api:latest 806947599851.dkr.ecr.us-east-1.amazonaws.com/svm:dev
+                docker push 806947599851.dkr.ecr.us-east-1.amazonaws.com/svm::dev
+            fi
