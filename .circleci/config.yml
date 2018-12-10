@@ -6,6 +6,10 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
+      - run: Train Model
+          command: |
+            pip install -r requirements.txt
+            python app/svm.py
       - run:
           name: Build the docker
           command: docker build -t svm_api:latest .
